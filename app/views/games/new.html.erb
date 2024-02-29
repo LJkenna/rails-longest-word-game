@@ -1,0 +1,19 @@
+<div class="container">
+<h1>New game</h1>
+  <div class="row">
+  <% @letters.each do |letter| %>
+    <div class="col-1 p-1 m-1 bg-primary text-white text-center"><%= letter %></div>
+  <% end %>
+  </div>
+  <h3>What's the longest word you make from these letters?</h3>
+  <div class="input-group mb-3">
+    <form action="/score" method="post" data-turbo="false">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :letters, @letters %>
+  <input type="text" name="answer" placeholder="here">
+  <input type="submit" value="°°°">
+  <div class="input-group-append">
+  </div>
+  </div>
+  </form>
+  </div>
