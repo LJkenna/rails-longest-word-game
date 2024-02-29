@@ -4,8 +4,9 @@ require 'json'
 class GamesController < ApplicationController
 
   def new
-    array = ('a'..'z').to_a + ('a'..'z').to_a
-    @letters = array.sample(10)
+    array_const = ('A'..'Z').to_a - %w[A E I U O] + ('A'..'Z').to_a - %w[A E I U O]
+    array_vowel = %w[A E I U O]
+    @letters = array_const.sample(7) + array_vowel.sample(3)
   end
 
   def hash_feedback(attempt)
@@ -18,7 +19,7 @@ class GamesController < ApplicationController
     @answer = params[:answer]
     @grid =   params[:letters]
     @hash_feedback = hash_feedback(@answer)
-    @message = if @answer.chars.all? { |letter| @answer.count(letter) <= @grid.count(letter) }
+    @message = if @answer.upcase!.chars.all? { |letter| @answer.count(letter) <= @grid.count(letter) }
                  @message = if @hash_feedback['found']
                               'Well done'
                             else
